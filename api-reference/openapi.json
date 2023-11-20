@@ -60,13 +60,13 @@
         }
       },
       "post": {
-        "description": "Creates a new plant in the store",
+        "description": "Enviar mensagem para um contato no WhatsApp",
         "requestBody": {
-          "description": "Plant to add to the store",
+          "description": "Metódo para enviar uma mensagem para um número do WhatsApp pelo Sacflow",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
+                "$ref": "#/components/schemas/Message"
               }
             }
           },
@@ -78,7 +78,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Plant"
+                  "$ref": "#/components/schemas/NewMessage"
                 }
               }
             }
@@ -132,41 +132,59 @@
   },
   "components": {
     "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
+        "Message": {
+        "required": ["from", "accountId", "whatsappId", "message", "contact"],
         "type": "object",
         "properties": {
-          "name": {
+          "from": {
             "description": "The name of the plant",
             "type": "string"
           },
-          "tag": {
-            "description": "Tag to specify the type",
+          "accountId": {
+            "description": "The name of the plant",
+            "format": "int32"
+          },
+          "whatsappId": {
+            "description": "The name of the plant",
+            "format": "int32"
+          },
+          "message": {
+            "description": "The name of the plant",
             "type": "string"
+          },
+          "contact": {
+            "description": "The name of the plant",
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "The name of the plant",
+                "type": "string"
+              },
+              "phone": {
+                "description": "The name of the plant",
+                "type": "string"
+              }
+            }
+          },
+          "isPrivate": {
+            "description": "The name of the plant",
+            "type": "boolean"
+          },
+          "messageTimeout": {
+            "description": "The name of the plant",
+            "format": "int32"
           }
         }
       },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
+      "NewMessage": {
+        "required": ["message"],
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "default": "message added to queue"
           }
-        ]
+        }
       },
       "Error": {
         "required": [
